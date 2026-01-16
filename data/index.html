@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>LED Controller</title>
+    <link rel="stylesheet" href="/style.css">
+    <script>
+        async function loadSettings() {
+            const response = await fetch('/api/settings');
+            const settings = await response.json();
+            
+            document.getElementById('brightness').value = settings.brightness;
+            document.getElementById('brightnessValue').textContent = settings.brightness + '%';
+            document.getElementById('maxBrightness').value = settings.maxBrightness;
+            document.getElementById('breathing').checked = settings.breathing;
+            // ... остальные поля
+        }
+        
+        async function saveSettings() {
+            const settings = {
+                brightness: parseInt(document.getElementById('brightness').value),
+                maxBrightness: parseInt(document.getElementById('maxBrightness').value),
+                breathing: document.getElementById('breathing').checked
+            };
+            
+            await fetch('/api/settings', {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(settings)
+            });
+        }
+        
+        window.onload = loadSettings;
+    </script>
+</head>
+<body>
+    <div class="container">
+        <h1>LED Controller</h1>
+        
+        <div class="control">
+            <label>Яркость: <span id="brightnessValue">50%</span></label>
+            <input type="range" id="brightness" min="0" max="100" 
+                   oninput="document.getElementById('brightnessValue').textContent = this.value + '%'">
+        </div>
+        
+        <div class="control">
+            <label>Макс. яркость:</label>
+            <input type="range" id="maxBrightness" min="1" max="100">
+        </div>
+        
+        <div class="control">
+            <label>
+                <input type="checkbox" id="breathing"> Эффект дыхания
+            </label>
+        </div>
+        
+        <button onclick="saveSettings()">Сохранить</button>
+    </div>
+</body>
+</html>

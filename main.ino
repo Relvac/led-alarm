@@ -3,7 +3,7 @@ const int freq = 5000; // frequency  5 KHz
 const int resolution = 8; // 8 bit 
 
 void setup() {
-  // pwm settings 
+    // pwm settings 
     ledcSetup(0, freq, resolution);
     ledcAttachPin(pwmPin, pwmChannel);
     

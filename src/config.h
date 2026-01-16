@@ -5,7 +5,6 @@
 struct Config {
     // LED Settings
     int Brightness = 50;        // 0-100%
-    int AwakeningTime = 30; // in minutes 
     // Schedule
     bool ScheduleEnabled = false;
     String OnTime = "08:00";

@@ -6,22 +6,18 @@ Config settings;
 
 void saveConfig() {
     pref.begin("led-config", false);
-    
-    pref.putInt("Brightness", settings.Brightness);
-    pref.putBool("Schedule", settings.ScheduleEnabled);
-    pref.putString("OnTime", settings.OnTime);
-    pref.putString("OffTime", settings.OffTime);
-    
+    pref.putInt("brightness", settings.brightness);
+    pref.putBool("schedule", settings.scheduleEnabled);
+    pref.putString("onTime", settings.onTime);
+    pref.putString("offTime", settings.offTime);
     pref.end();
 }
 
 void loadConfig() {
     pref.begin("led-config", true);
-    
-    settings.brightness = pref.getInt("Brightness", 50);
-    settings.scheduleEnabled = pref.getBool("Schedule", false);
-    settings.onTime = pref.getString("OnTime", "08:00");
-    settings.offTime = pref.getString("OffTime", "23:00");
-    
+    settings.brightness = pref.getInt("brightness", 50);
+    settings.scheduleEnabled = pref.getBool("schedule", false);
+    settings.onTime = pref.getString("onTime", "08:00");
+    settings.offTime = pref.getString("offTime", "23:00");
     pref.end();
 }
